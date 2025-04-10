@@ -1,3 +1,7 @@
+variable "credentials" {
+  default = "./secrets/my-secrets.json"
+}
+
 variable "project" {
   default = "consummate-fold-456420-b6"
 }

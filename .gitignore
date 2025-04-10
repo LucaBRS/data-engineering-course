@@ -1,4 +1,5 @@
 .idea
 **/secrets/
-*.csv
-*.parquet
+**/*.csv
+**/*.parquet
+

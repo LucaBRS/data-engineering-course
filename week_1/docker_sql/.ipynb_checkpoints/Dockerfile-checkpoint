@@ -1,0 +1,12 @@
+FROM python:3.9
+
+RUN pip install pandas
+
+# this will specify the location the image in the container where we copy the file
+WORKDIR /app
+# we copy the file from the current work directory to docker directory (/app)
+COPY pipeline.py pipeline.py
+
+#this will overrie the entrypoint in this case instead of running in bash will be in python and the pipeline.py will be
+#executed
+ENTRYPOINT ["python","pipeline.py"]

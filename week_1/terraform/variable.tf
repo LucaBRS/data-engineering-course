@@ -1,5 +1,5 @@
 variable "credentials" {
-  default = "./secrets/my-secrets.json"
+  default = "~/.gc/my-secrets.json"
 }
 
 variable "project" {

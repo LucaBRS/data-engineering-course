@@ -4,3 +4,5 @@
 *.parquet
 *.hcl
 *.terraform
+*.tfstate
+*.tfstate.backup

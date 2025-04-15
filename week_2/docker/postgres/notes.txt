@@ -1,0 +1,11 @@
+docker run --rm -d \
+  --name pgadmin \
+  --network postgres_default \
+  -p 8081:80 \
+  -e PGADMIN_DEFAULT_EMAIL=admin@admin.com \
+  -e PGADMIN_DEFAULT_PASSWORD=admin \
+  dpage/pgadmin4
+
+
+
+docker run --pull=always --rm -it -p 8080:8080 --user=root --network postgres_default -v /var/run/docker.sock:/var/run/docker.sock -v /tmp:/tmp kestra/kestra:latest server local

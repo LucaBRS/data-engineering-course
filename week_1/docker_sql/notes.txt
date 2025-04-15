@@ -79,7 +79,7 @@ docker build -t taxi_ingest:v001 .
 
 #now instead of running the py we do run the docker container passing to it the parameters
 # BUT!!! we need to remember to add it to the network!!! and put the correct --host
-docker run -it --network=pg-network taxi_ingest:v001      \
+docker run -it --network=my_custom_network ingest      \
     --user=root \
     --password=root \
     --host=pg-database \

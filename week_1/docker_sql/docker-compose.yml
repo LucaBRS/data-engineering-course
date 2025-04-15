@@ -1,16 +1,26 @@
 # in this way all is in the same network!!!
+
+networks:
+  shared-net:
+    name: my_custom_network  # <<— this is the real network name Docker will create
+
+
 services:
   #questo e il nome da mettere dentro pgadmin per registrare il db
   pg-database:
     image: postgres:13
     environment:
-      - POSTGRES_USER=root 
+      - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
       - POSTGRES_DB=ny_taxi
     volumes:
       - "./ny_taxi_postgres_data:/var/lib/postgresql/data:rw"
     ports:
       - "5432:5432"
+    networks:
+      - shared-net
+
+
   pgadmin:
     image: dpage/pgadmin4
     environment:
@@ -18,3 +28,5 @@ services:
       - PGADMIN_DEFAULT_PASSWORD=root
     ports:
       - "8080:80"
+    networks:
+      - shared-net

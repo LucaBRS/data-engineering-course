@@ -1,4 +1,4 @@
-name: Terraform GCS Bucket Demo
+name: Terraform GCS CREATE
 
 on:
   workflow_dispatch:
@@ -23,7 +23,7 @@ jobs:
           GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
 
       - name: Terraform Init
-        run: terraform init
+        run: terraform init -reconfigure
 
       - name: Terraform Format Check
         run: terraform fmt -check

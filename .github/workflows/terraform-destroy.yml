@@ -21,15 +21,8 @@ jobs:
         run: echo "$GOOGLE_CREDENTIALS" > gcp-key.json
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
-
-      - name: Terraform Init
-        run: terraform init
-        
-      - name: Terraform Validate
-        run: terraform validate
-
-      - name: Terraform Plan
-        run: terraform plan -var-file="terraform.tfvars"
         
       - name: Terraform Destroy
         run: terraform destroy -auto-approve 
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}

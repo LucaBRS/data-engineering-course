@@ -1,0 +1,17 @@
+variable "project_id" {
+  default = "consummate-fold-456420-b6"
+}
+
+variable "region" {
+  default = "europe-west8"
+}
+
+variable "location" {
+  description = "prog location"
+  default     = "EU"
+}
+
+variable "bucket_name" {
+  description = "my storage bucket name "
+  default     = "consummate-fold-456420-b6-terra-bucket"
+}

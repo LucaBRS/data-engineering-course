@@ -1,4 +1,4 @@
-name: Terraform GCS CREATE
+name: Terraform create GCP
 
 on:
   workflow_dispatch:

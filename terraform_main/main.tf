@@ -1,3 +1,8 @@
+provider "google" {
+  project     = var.project_id
+  region      = var.region
+  credentials = file("gcp-key.json")
+}
 
 # Extremely important in order to keep all the .tfstate of terraform and be able to use Pipeline
 # to destroy or create
@@ -15,12 +20,6 @@ terraform {
 
 # The rest of your Terraform configuration would go here (resources, modules, etc.)
 
-
-provider "google" {
-  project     = var.project_id
-  region      = var.region
-  credentials = file("gcp-key.json")
-}
 
 resource "google_storage_bucket" "demo_bucket" {
   name          = var.bucket_name

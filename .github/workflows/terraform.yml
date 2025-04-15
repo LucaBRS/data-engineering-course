@@ -1,9 +1,6 @@
 name: Terraform GCS Bucket Demo
 
 on:
-  push:
-    paths:
-      - 'terraform_main/**'
   workflow_dispatch:
 
 jobs:

@@ -78,6 +78,7 @@ output "vm_ip" {
 ################################################ POSTGRES DB ###########################################################
 
 resource "google_sql_database_instance" "kestra" {
+  deletion_protection = var.enable_deletion_protection #TODO just for dev
   name             = var.db_instance_name
   database_version = "POSTGRES_13"
   region           = var.region

@@ -27,3 +27,5 @@ variable "db_password" {
   sensitive = true
   default   = "" # safe fallback
 }
+
+variable "enable_deletion_protection" {}

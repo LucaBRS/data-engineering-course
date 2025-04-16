@@ -30,7 +30,8 @@ resource "google_storage_bucket" "demo_bucket" {
   force_destroy = true
 }
 
-
+#
+#
 #####################################################    VM    #########################################################
 
 resource "google_compute_instance" "vm_kestra" {
@@ -72,4 +73,34 @@ output "vm_ip" {
   value = google_compute_instance.vm_kestra.network_interface[0].access_config[0].nat_ip
 }
 
-########################################################################################################################
+#
+#
+################################################ POSTGRES DB ###########################################################
+
+resource "google_sql_database_instance" "kestra" {
+  name             = var.db_instance_name
+  database_version = "POSTGRES_13"
+  region           = var.region
+
+  settings {
+    tier = "db-f1-micro"  # change if needed
+    ip_configuration {
+      ipv4_enabled    = true
+      authorized_networks {
+        name  = "vm-access"
+        value = "YOUR_VM_EXTERNAL_IP/32"
+      }
+    }
+  }
+}
+
+resource "google_sql_user" "kestra_user" {
+  name     = "kestra"
+  instance = google_sql_database_instance.kestra.name
+  password = "kestra" # or use Terraform secrets
+}
+
+resource "google_sql_database" "kestra_db" {
+  name     = "kestra"
+  instance = google_sql_database_instance.kestra.name
+}

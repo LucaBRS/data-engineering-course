@@ -17,3 +17,7 @@ variable "bucket_name" {
   description = "my storage bucket name "
   default     = "consummate-fold-456420-b6-terra-bucket"
 }
+
+variable "db_instance_name" {
+  default = "kestra-postgres"
+}

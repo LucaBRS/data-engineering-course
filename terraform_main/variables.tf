@@ -6,6 +6,8 @@ variable "region" {
   default = "europe-west8"
 }
 
+variable "zone" {}
+
 variable "location" {
   description = "prog location"
   default     = "EU"

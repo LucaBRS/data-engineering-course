@@ -1,9 +1,3 @@
-provider "google" {
-  project     = var.project_id
-  region      = var.region
-  credentials = file("gcp-key.json")
-}
-
 # Extremely important in order to keep all the .tfstate of terraform and be able to use Pipeline
 # to destroy or create
 terraform {
@@ -20,9 +14,62 @@ terraform {
 
 # The rest of your Terraform configuration would go here (resources, modules, etc.)
 
+########################################################################################################################
+########################################################################################################################
+########################################################################################################################
+
+provider "google" {
+  project     = var.project_id
+  region      = var.region
+  credentials = file("gcp-key.json")
+}
 
 resource "google_storage_bucket" "demo_bucket" {
   name          = var.bucket_name
   location      = var.region
   force_destroy = true
 }
+
+
+#####################################################    VM    #########################################################
+
+resource "google_compute_instance" "vm_kestra" {
+  name         = "kestra-vm"
+  machine_type = "e2-standard-2"
+  zone         = var.zone
+
+  boot_disk {
+    initialize_params {
+      image = "ubuntu-os-cloud/ubuntu-2204-lts"
+      size  = 30
+      type  = "pd-ssd"
+    }
+  }
+
+  network_interface {
+    network = "default"
+    access_config {}
+  }
+
+  metadata_startup_script = file("install.sh")
+
+  tags = ["http-server", "https-server"]
+}
+
+resource "google_compute_firewall" "allow_http_https" {
+  name    = "allow-http-https"
+  network = "default"
+
+  allow {
+    protocol = "tcp"
+    ports    = ["80", "443"]
+  }
+
+  target_tags = ["http-server", "https-server"]
+}
+
+output "vm_ip" {
+  value = google_compute_instance.vm_kestra.network_interface[0].access_config[0].nat_ip
+}
+
+########################################################################################################################

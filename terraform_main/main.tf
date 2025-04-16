@@ -64,7 +64,7 @@ resource "google_compute_firewall" "allow_http_https" {
     protocol = "tcp"
     ports    = ["80", "443"]
   }
-
+  source_ranges = ["0.0.0.0/0"] # TODO MUST BE CHANGE AS SOON AS POSSIBLE
   target_tags = ["http-server", "https-server"]
 }
 

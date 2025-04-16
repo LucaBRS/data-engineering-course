@@ -81,7 +81,7 @@ resource "google_sql_database_instance" "kestra" {
   name             = var.db_instance_name
   database_version = "POSTGRES_13"
   region           = var.region
-  depends_on = [vm_kestra]
+  depends_on = [google_compute_instance.kestra_vm]
   settings {
     tier = "db-f1-micro"  # change if needed
     ip_configuration {

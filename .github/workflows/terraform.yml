@@ -47,4 +47,7 @@ jobs:
         run: terraform apply -auto-approve -var-file="terraform.tfvars"
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }} # MUST BE REPETED FOR EACH STEP
+
+
+# during the run of the pipeline in order for each step to be "validate" by GCP the credential must be repeted
           

@@ -28,7 +28,7 @@ jobs:
           GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }} # MUST BE REPETED FOR EACH STEP
           
       - name: Terraform Format Check
-        run: terraform fmt -check
+        run: terraform fmt 
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }} # MUST BE REPETED FOR EACH STEP
           

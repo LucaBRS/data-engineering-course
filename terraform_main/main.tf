@@ -81,14 +81,14 @@ resource "google_sql_database_instance" "kestra" {
   name             = var.db_instance_name
   database_version = "POSTGRES_13"
   region           = var.region
-
+  depends_on = [vm_kestra]
   settings {
     tier = "db-f1-micro"  # change if needed
     ip_configuration {
       ipv4_enabled    = true
       authorized_networks {
         name  = "vm-access"
-        value = "YOUR_VM_EXTERNAL_IP/32"
+        value = google_compute_instance.kestra_vm.network_interface[0].access_config[0].nat_ip
       }
     }
   }

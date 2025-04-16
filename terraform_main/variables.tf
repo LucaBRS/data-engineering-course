@@ -21,3 +21,9 @@ variable "bucket_name" {
 variable "db_instance_name" {
   default = "kestra-postgres"
 }
+
+variable "db_password" {
+  type      = string
+  sensitive = true
+  default   = "" # safe fallback
+}

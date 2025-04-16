@@ -97,7 +97,7 @@ resource "google_sql_database_instance" "kestra" {
 resource "google_sql_user" "kestra_user" {
   name     = "kestra"
   instance = google_sql_database_instance.kestra.name
-  password = "kestra" # or use Terraform secrets
+  password = var.db_password # or use Terraform secrets
 }
 
 resource "google_sql_database" "kestra_db" {

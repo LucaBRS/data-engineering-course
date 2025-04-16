@@ -65,7 +65,7 @@ resource "google_compute_firewall" "allow_http_https" {
     ports    = ["80", "443"]
   }
   source_ranges = ["0.0.0.0/0"] # TODO MUST BE CHANGE AS SOON AS POSSIBLE
-  target_tags = ["http-server", "https-server"]
+  target_tags   = ["http-server", "https-server"]
 }
 
 output "vm_ip" {

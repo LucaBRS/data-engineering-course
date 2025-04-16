@@ -88,7 +88,7 @@ resource "google_sql_database_instance" "kestra" {
       ipv4_enabled    = true
       authorized_networks {
         name  = "vm-access"
-        value = google_compute_instance.kestra_vm.network_interface[0].access_config[0].nat_ip
+        value = google_compute_instance.vm_kestra.network_interface[0].access_config[0].nat_ip
       }
     }
   }

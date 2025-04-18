@@ -54,20 +54,27 @@ resource "google_compute_instance" "vm_kestra" {
 
   metadata_startup_script = file("install.sh")
 
-  tags = ["http-server", "https-server"]
+  tags = ["http-server", "https-server", "kestra-ui"]
 }
 
-resource "google_compute_firewall" "allow_http_https" {
-  name    = "allow-http-https"
-  network = "default"
+
+resource "google_compute_firewall" "kestra_ui_port" {
+  name        = "kestra-ui-port"
+  description = "Allow traffic for Kestra UI on port 8080"
+  network     = "default"
 
   allow {
     protocol = "tcp"
-    ports    = ["80", "443"]
+    ports    = ["8080"]
   }
-  source_ranges = ["0.0.0.0/0"] # TODO MUST BE CHANGE AS SOON AS POSSIBLE
-  target_tags   = ["http-server", "https-server"]
+
+  source_ranges = ["0.0.0.0/0"] # Allow from any IP address (you can limit this later)
+  target_tags   = ["kestra-ui"]
 }
+
+
+
+
 
 output "vm_ip" {
   value = google_compute_instance.vm_kestra.network_interface[0].access_config[0].nat_ip
@@ -79,14 +86,14 @@ output "vm_ip" {
 
 resource "google_sql_database_instance" "kestra" {
   deletion_protection = var.enable_deletion_protection #TODO just for dev
-  name             = var.db_instance_name
-  database_version = "POSTGRES_13"
-  region           = var.region
-  depends_on = [google_compute_instance.vm_kestra] #this is not strictly necessary! but it is ok to use it
+  name                = var.db_instance_name
+  database_version    = "POSTGRES_13"
+  region              = var.region
+  depends_on          = [google_compute_instance.vm_kestra] #this is not strictly necessary! but it is ok to use it
   settings {
-    tier = "db-f1-micro"  # change if needed
+    tier = "db-f1-micro" # change if needed
     ip_configuration {
-      ipv4_enabled    = true
+      ipv4_enabled = true
       authorized_networks {
         name  = "vm-access"
         value = google_compute_instance.vm_kestra.network_interface[0].access_config[0].nat_ip

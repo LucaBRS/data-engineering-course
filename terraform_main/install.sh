@@ -20,3 +20,18 @@ apt-get update -y
 apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 
 usermod -aG docker $USER
+
+# Enable docker
+systemctl enable docker
+systemctl start docker
+
+# Create working directory
+mkdir -p /opt/kestra
+cd /opt/kestra
+
+
+# Write docker-compose.yml from instance metadata
+curl -H "Metadata-Flavor: Google" http://metadata.google.internal/computeMetadata/v1/instance/attributes/docker_compose > docker-compose.yml
+
+# Run docker compose
+docker-compose up -d

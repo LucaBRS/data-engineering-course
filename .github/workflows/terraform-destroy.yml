@@ -28,6 +28,6 @@ jobs:
           GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }} # MUST BE REPETED FOR EACH STEP
         
       - name: Terraform Destroy
-        run: terraform destroy -auto-approve 
+        run: terraform destroy -auto-approve -lock=false
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }} # MUST BE REPETED FOR EACH STEP

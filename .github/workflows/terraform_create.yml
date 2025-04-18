@@ -25,6 +25,7 @@ jobs:
           sed -i "s|__KESTRA_PSW__|${{ secrets.__KESTRA_PSW__}}|g" terraform_main/docker-compose.yml
           sed -i "s|__PSQL_USER__|${{ secrets.__PSQL_USER__}}|g" terraform_main/docker-compose.yml
           sed -i "s|__PSQL_PSW__|${{ secrets.__PSQL_PSW__}}|g" terraform_main/docker-compose.yml
+        working-directory: terraform_main
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v2

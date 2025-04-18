@@ -20,12 +20,12 @@ jobs:
 
       - name: Replace secrets in docker-compose.yml
         run: |
-          # Replace secrets inside docker-compose.yml (located in terraform_main/file/)
-          sed -i "s|__KESTRA_USERNAME__|${{ secrets.__KESTRA_USERNAME__ }}|g" terraform_main/docker-compose.yml
-          sed -i "s|__KESTRA_PSW__|${{ secrets.__KESTRA_PSW__}}|g" terraform_main/docker-compose.yml
-          sed -i "s|__PSQL_USER__|${{ secrets.__PSQL_USER__}}|g" terraform_main/docker-compose.yml
-          sed -i "s|__PSQL_PSW__|${{ secrets.__PSQL_PSW__}}|g" terraform_main/docker-compose.yml
-        working-directory: terraform_main
+          # Replace secrets inside docker-compose.yml (located in terraform_main)
+          sed -i "s|__KESTRA_USERNAME__|${{ secrets.__KESTRA_USERNAME__ }}|g" docker-compose.yml
+          sed -i "s|__KESTRA_PSW__|${{ secrets.__KESTRA_PSW__}}|g" docker-compose.yml
+          sed -i "s|__PSQL_USER__|${{ secrets.__PSQL_USER__}}|g" docker-compose.yml
+          sed -i "s|__PSQL_PSW__|${{ secrets.__PSQL_PSW__}}|g" docker-compose.yml
+        
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v2

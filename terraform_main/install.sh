@@ -19,7 +19,8 @@ echo \
 apt-get update -y
 apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 
-usermod -aG docker $USER
+sudo groupadd docker
+sudo gpasswd -a $USER docker
 
 # Enable docker
 systemctl enable docker
@@ -34,4 +35,4 @@ cd /opt/kestra
 curl -H "Metadata-Flavor: Google" http://metadata.google.internal/computeMetadata/v1/instance/attributes/docker_compose > docker-compose.yml
 
 # Run docker compose
-docker-compose up -d
+sudo docker compose up -d

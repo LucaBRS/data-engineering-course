@@ -41,7 +41,7 @@ resource "google_compute_instance" "vm_kestra" {
 
   boot_disk {
     initialize_params {
-      image = "ubuntu-os-cloud/ubuntu-2204-lts"
+      image = "projects/ubuntu-os-cloud/global/images/ubuntu-2204-jammy-v20250415"
       size  = 30
       type  = "pd-ssd"
     }

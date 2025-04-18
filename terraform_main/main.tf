@@ -52,7 +52,10 @@ resource "google_compute_instance" "vm_kestra" {
     access_config {}
   }
 
-  metadata_startup_script = file("install.sh")
+    metadata = {
+    startup-script = file("install.sh")
+    docker_compose = file("docker-compose.yml") # this is the path in your repo
+  }
 
   tags = ["http-server", "https-server", "kestra-ui"]
 }

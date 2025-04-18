@@ -27,7 +27,7 @@ jobs:
           sed -i "s|__PSQL_PSW__|${{ secrets.__PSQL_PSW__}}|g" docker-compose.yml
 
       - name: TEST Print docker-compose.yml
-        run: cat file/docker-compose.yml
+        run: cat docker-compose.yml
 #
 #      - name: Set up Terraform
 #        uses: hashicorp/setup-terraform@v2

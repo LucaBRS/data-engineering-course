@@ -1,0 +1,45 @@
+name: Terraform Create GCP
+
+on:
+  workflow_dispatch:
+
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    env:
+      GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+      TF_VAR_db_password: ${{ secrets.PSQL_PSW }}
+    defaults:
+      run:
+        working-directory: terraform_main
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Replace secrets in docker-compose.yml
+        run: |
+          # Replace secrets inside docker-compose.yml (located in terraform_main)
+          sed -i "s|__KESTRA_USERNAME__|${{ secrets.__KESTRA_USERNAME__ }}|g" docker-compose.yml
+          sed -i "s|__KESTRA_PSW__|${{ secrets.__KESTRA_PSW__}}|g" docker-compose.yml
+          sed -i "s|__PSQL_USER__|${{ secrets.__PSQL_USER__}}|g" docker-compose.yml
+          sed -i "s|__PSQL_PSW__|${{ secrets.__PSQL_PSW__}}|g" docker-compose.yml
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v2
+
+      - name: Write GCP credentials to file
+        run: echo "$GOOGLE_CREDENTIALS" > gcp-key.json
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Format Check
+        run: terraform fmt
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Terraform Plan
+        run: terraform plan -var-file="terraform.tfvars"

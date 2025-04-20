@@ -52,7 +52,7 @@ resource "google_compute_instance" "vm_kestra" {
     access_config {}
   }
 
-    metadata = {
+  metadata = {
     startup-script = file("install.sh")
     docker_compose = file("docker-compose.yml") # this is the path in your repo
   }
@@ -110,4 +110,23 @@ resource "google_sql_user" "kestra_user" {
 resource "google_sql_database" "kestra_db" {
   name     = "kestra"
   instance = google_sql_database_instance.kestra.name
+}
+
+
+################################################   BUCKET   ############################################################
+
+resource "google_storage_bucket" "taxi_data_bucket" {
+  name          = var.taxy_bucket_name
+  location      = var.region
+  force_destroy = true
+
+  lifecycle_rule {
+    condition {
+      age = 1
+    }
+    action {
+      type = "AbortIncompleteMiltipartUpload"
+    }
+  }
+
 }

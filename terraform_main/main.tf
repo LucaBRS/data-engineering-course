@@ -65,7 +65,6 @@ resource "google_compute_firewall" "kestra_ui_port" {
   name        = "kestra-ui-port"
   description = "Allow traffic for Kestra UI on port 8080"
   network     = "default"
-
   allow {
     protocol = "tcp"
     ports    = ["8080"]
@@ -74,9 +73,6 @@ resource "google_compute_firewall" "kestra_ui_port" {
   source_ranges = ["0.0.0.0/0"] # Allow from any IP address (you can limit this later)
   target_tags   = ["kestra-ui"]
 }
-
-
-
 
 
 output "vm_ip" {

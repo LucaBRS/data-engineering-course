@@ -129,14 +129,6 @@ resource "google_storage_bucket" "taxi_data_bucket" {
   location      = var.region
   force_destroy = true
 
-  lifecycle_rule {
-    condition {
-      age = 1
-    }
-    action {
-      type = "AbortIncompleteMiltipartUpload"
-    }
-  }
 }
 
 

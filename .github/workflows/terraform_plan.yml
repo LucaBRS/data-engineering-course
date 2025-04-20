@@ -1,6 +1,9 @@
-name: Terraform Create GCP
+name: Terraform Plan GCP
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 

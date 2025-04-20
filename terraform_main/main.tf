@@ -84,11 +84,10 @@ output "vm_ip" {
 ################################################ POSTGRES DB ###########################################################
 
 resource "google_sql_database_instance" "kestra" {
-  deletion_protection = var.enable_deletion_protection #TODO just for dev
-  name                = var.db_instance_name
-  database_version    = "POSTGRES_13"
-  region              = var.region
-  depends_on          = [google_compute_instance.vm_kestra] #this is not strictly necessary! but it is ok to use it
+  name             = var.db_instance_name
+  database_version = "POSTGRES_13"
+  region           = var.region
+  depends_on       = [google_compute_instance.vm_kestra] #this is not strictly necessary! but it is ok to use it
   settings {
     tier = "db-f1-micro" # change if needed
     ip_configuration {
@@ -99,6 +98,10 @@ resource "google_sql_database_instance" "kestra" {
       }
     }
   }
+
+
+  deletion_protection = var.enable_deletion_protection #TODO just for dev
+
 }
 
 resource "google_sql_user" "kestra_user" {
@@ -128,5 +131,8 @@ resource "google_storage_bucket" "taxi_data_bucket" {
       type = "AbortIncompleteMiltipartUpload"
     }
   }
+
+  deletion_protection = var.enable_deletion_protection #TODO just for dev
+
 
 }

@@ -132,7 +132,5 @@ resource "google_storage_bucket" "taxi_data_bucket" {
     }
   }
 
-  deletion_protection = var.enable_deletion_protection #TODO just for dev
-
 
 }

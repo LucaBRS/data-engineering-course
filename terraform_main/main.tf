@@ -10,6 +10,12 @@ terraform {
     # This can be useful if you have multiple environments, e.g., dev, staging, prod
     prefix = "terraform/state" # This specifies the folder structure within the bucket
   }
+  required_providers {
+    google-beta = {
+      source  = "hashicorp/google-beta"
+      version = "6.13.0"
+    }
+  }
 }
 
 # The rest of your Terraform configuration would go here (resources, modules, etc.)
@@ -131,6 +137,14 @@ resource "google_storage_bucket" "taxi_data_bucket" {
       type = "AbortIncompleteMiltipartUpload"
     }
   }
+}
 
 
+################################################     BQ     ############################################################
+
+resource "google_bigquery_dataset" "taxi_bq" {
+  dataset_id = var.taxy_bq_name
+  location   = var.region
+
+  delete_contents_on_destroy = var.enable_deletion_protection # TODO for dev/lear
 }

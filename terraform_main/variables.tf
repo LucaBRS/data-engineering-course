@@ -31,3 +31,5 @@ variable "db_password" {
 variable "enable_deletion_protection" {}
 
 variable "taxy_bucket_name" {}
+
+variable "taxy_bq_name" {}

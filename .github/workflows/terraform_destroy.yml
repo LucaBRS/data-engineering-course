@@ -1,4 +1,4 @@
-name: Terraform Destroy GCS Bucket
+name: Terraform Destroy GCP
 
 on:
   workflow_dispatch:

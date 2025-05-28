@@ -1,6 +1,6 @@
-project_id                 = "consummate-fold-456420-b6"
-bucket_name                = "consummate-fold-456420-b6-terra-bucket"
+project_id                 = "test-cloud-run-firebase"
+bucket_name                = "test-cloud-run-firebase-terra-bucket"
 zone                       = "europe-west8-b"
 enable_deletion_protection = false # Set to true in prod
-taxy_bucket_name           = "consummate-fold-456420-b6-taxi-data-bucket"
+taxy_bucket_name           = "test-cloud-run-firebase-taxi-data-bucket"
 taxy_bq_name               = "taxi_bq_test"

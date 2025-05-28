@@ -1,5 +1,5 @@
 variable "project_id" {
-  default = "consummate-fold-456420-b6"
+  default = "test-cloud-run-firebase"
 }
 
 variable "region" {
@@ -15,7 +15,7 @@ variable "location" {
 
 variable "bucket_name" {
   description = "my storage bucket name "
-  default     = "consummate-fold-456420-b6-terra-bucket"
+  default     = "test-cloud-run-firebase-terra-bucket"
 }
 
 variable "db_instance_name" {
